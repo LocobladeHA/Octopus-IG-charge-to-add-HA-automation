@@ -1,6 +1,6 @@
 # Octopus Intelligent Go Charge-to-add Automation
 
-When Octopus control your home charge, you have to tell them how much charge to add each time you plug in. This can become a bit onerous having to go into the Octopus app all the time, particularly if you have more than one car with different battery sizes.
+When Octopus control your home wall charger, you have to tell them how much charge to add each time you plug in. This can become a bit onerous having to go into the Octopus app all the time, particularly if you have more than one car with different battery sizes.
 
 This is a Home Assistant automation and sensors that will automate that process of telling Octopus Intelligent Go the amount of charge required to meet the car's target charge state when Octopus is controlling the charger.
 To use this you'll need the following integrations:
