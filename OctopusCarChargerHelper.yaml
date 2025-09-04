@@ -1,13 +1,16 @@
+
 alias: Octopus Car Charge Helper
 description: ""
 triggers:
   - type: plugged_in
+    # Trigger when car is plugged in
     device_id: <car_device>
     entity_id: <car_device_plugged_in>
     domain: binary_sensor
     trigger: device
 conditions:
   - type: is_plugged_in
+    # Condition when plugged into home charger (so it's not triggered when charging away from home)
     condition: device
     device_id: <home_charger_device>
     entity_id: <home_charger_device_plugged_in>
@@ -16,7 +19,10 @@ actions:
   - action: number.set_value
     metadata: {}
     data:
+      # Uses the value from the "Sensor_CarChargeRequired.yaml" created 
       value: "{{ states('sensor.car_charge_required') | float(0) }}"
     target:
+      # Update Octopus with the required charge percentage. 
+      # Use the 'Octopus Energy' HACS Integration for this entity, not the 'Octopus Intelligent Tariff' integration, as the latter doesn't allow a free integer number to be inputted
       entity_id: number.octopus_energy_a_<ID>_intelligent_charge_target
 mode: single
