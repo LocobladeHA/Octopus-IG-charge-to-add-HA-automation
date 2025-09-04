@@ -1,0 +1,22 @@
+alias: Octopus Car Charge Helper
+description: ""
+triggers:
+  - type: plugged_in
+    device_id: <car_device>
+    entity_id: <car_device_plugged_in>
+    domain: binary_sensor
+    trigger: device
+conditions:
+  - type: is_plugged_in
+    condition: device
+    device_id: <home_charger_device>
+    entity_id: <home_charger_device_plugged_in>
+    domain: binary_sensor
+actions:
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: "{{ states('sensor.car_charge_required') | float(0) }}"
+    target:
+      entity_id: number.octopus_energy_a_<ID>_intelligent_charge_target
+mode: single
