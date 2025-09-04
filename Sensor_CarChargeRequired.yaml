@@ -1,6 +1,18 @@
-# Add either the automatic or manual target sensor to your sensor.yaml file
+# Use the automatic or manual target sensor depending on what your HA car integration supports, adding it to your sensor.yaml file
+# Automatic uses the HA car integration sensor to determine both the target charge % value and the current charge %
+# Manual uses the HA car integration sensor to determine the current charge % value but manually sets the target charge % in the sensor.
+
+# If you have two or more cars with different battery capacities that all charge at home create a sensor for each car with different names.
+# When charging two or more cars Octopus only know about one of the car battery capacities so will base their % charge on that car's battery capacity. 
+# For the car that Octopus doesn't know about, if you simply tell Octopus to add 50% charge when the car needs 50%, you won't end up adding 50%
+# For example Car 1 has an 80kw battery, Car 2 has a 60kw battery. Octopus only know about car 1 so requesting 50% charge from Octopus will equate to 40kw of charge.
+# To fix this for car 2, change the multiplier to adjust the charge requested amount to suit the car
+# For example, you'd in the above example you'd change the multiplier to 0.75 (60/80) like this...
+# {% set raw_needed = (target - current) * 0.75 %} 
+# This will end up with car 2 requesting the correct amount for its battery size
 # ========================================================================================
-    # Automatic using a car integration sensor to determine the target charge % value
+
+# Automatic sensor using a car integration sensor to determine the target charge % value
   - platform: template
     sensors:
       car_charge_required:  
@@ -12,14 +24,13 @@
         value_template: > 
           {% set target = states('sensor.<car_target_state_of_charge>') | int(0) %}  
           {% set current = states('sensor.<car_state_of_charge>') | int(0) %}
-          {% set raw_needed = (target - current) %}
+          {% set raw_needed = (target - current) * 1.0 %}
           {% set needed = [raw_needed, 0] | max %}
           {{ [needed, 10] | max | round(0, 'ceil') | int }}
 # ========================================================================================
 
-
 # ========================================================================================
-    # Manual using a manually defined target charge % value
+# Manual sensor using a manually defined target charge % value
   - platform: template
     sensors:
       car_charge_required:  
@@ -31,7 +42,7 @@
         value_template: > 
           {% set target = 90 | int(0) %}
           {% set current = states('sensor.<car_state_of_charge>') | int(0) %}
-          {% set raw_needed = (target - current) %}
+          {% set raw_needed = (target - current) * 1.0 %}
           {% set needed = [raw_needed, 0] | max %}
           {{ [needed, 10] | max | round(0, 'ceil') | int }}
 # ========================================================================================
