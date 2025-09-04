@@ -1,13 +1,30 @@
-# Add yo your sensor.yaml file
+# Add either the automatic or manual target sensor to your sensor.yaml file
   - platform: template
     sensors:
+
+    # Automatic using a car integration sensor to determine the target charge % value
       car_charge_required:  
         friendly_name: "Car Charge Required"
         unique_id: car_charge_required
         unit_of_measurement: "%"
-        # Modify both sensors below to determine your current state of charge and target state of charge
+        #  Add car integration target state of charge sensor to 'set target' sensor
+        #  Add car integration current state of charge sensor to 'set current' sensor
         value_template: > 
           {% set target = states('sensor.<car_target_state_of_charge>') | int(0) %}  
+          {% set current = states('sensor.<car_state_of_charge>') | int(0) %}
+          {% set raw_needed = (target - current) %}
+          {% set needed = [raw_needed, 0] | max %}
+          {{ [needed, 10] | max | round(0, 'ceil') | int }}
+
+    # Manual using a manually defined target charge % value
+      car_charge_required:  
+        friendly_name: "Car Charge Required"
+        unique_id: car_charge_required
+        unit_of_measurement: "%"
+        # Modify 'set target' sensor with the target charge % (currently set to 90%). 
+        # Add car integration current state of charge sensor to 'set current' sensor
+        value_template: > 
+          {% set target = 90 | int(0) %}
           {% set current = states('sensor.<car_state_of_charge>') | int(0) %}
           {% set raw_needed = (target - current) %}
           {% set needed = [raw_needed, 0] | max %}
