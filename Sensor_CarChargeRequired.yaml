@@ -10,6 +10,8 @@
 # For example, you'd in the above example you'd change the multiplier to 0.75 (60/80) like this...
 # {% set raw_needed = (target - current) * 0.75 %} 
 # This will end up with car 2 requesting the correct amount for its battery size
+# If you want to request a bit more than the calculated amount you can edit the same step like this, in this example adding 5 to the calculated value
+# {% set raw_needed = (5 + target - current) * 1 %}
 # ========================================================================================
 
 # Automatic sensor using a car integration sensor to determine the target charge % value
