@@ -15,4 +15,4 @@ Ideally your own car's HA integration gives you the following two attributes:
 
 If your car integration doesn't expose the target state of charge, use the manual version of the sensor and either set the target in the sensor itself (e.g. 90%), or create a input_number helper so you can control that value from a dashboard input card. If your car doesn't tell you when it's plugged in, you can trigger the automation from your charger integration plugged in state instead
 
-If you have more than one car you charge at home, you can create two sensors and two automations to control both.
+If you have more than one car you charge at home, create two sensors and two automations to control both.
