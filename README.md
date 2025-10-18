@@ -8,7 +8,7 @@ To use this you'll need the following integrations:
 * HA integration for your car
 * HA integration for your charger (optional)
 
-Ideally your own car's HA integration gives you the following two attributes:
+Ideally your own car's HA integration gives you the following three attributes:
 * Car current state of charge %
 * Car target state of charge %
 * Car plugged in status
