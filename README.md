@@ -16,3 +16,7 @@ Ideally your own car's HA integration gives you the following two attributes:
 If your car integration doesn't expose the target state of charge, use the manual version of the sensor and either set the target in the sensor itself (e.g. 90%), or create a input_number helper so you can control that value from a dashboard input card. If your car doesn't tell you when it's plugged in, you can trigger the automation from your charger integration plugged in state instead
 
 If you have more than one car you charge at home, create two sensors and two automations to control both along with a condition to determine which car is plugged in, so only one automation will complete
+
+Here's my charging dashboard for some inspiration, showing the various sensors and integrations in action. 
+![My Dashboard](https://github.com/LocobladeHA/Octopus-IG-charge-to-add-HA-automation/blob/main/ChargeDashboard.png)
+Thus shows my Polestar mid charge, the "Charge Required" sensor updates real time hence why it's lower than the amount of charge requested in the Octopus section when the automation fired when first plugged in. The Target % is set manually on the Polestar as its integration doesn't expose the target charge % so if the car is set to 80% thats all it will charge to regardless, whereas the Cupra integration does expose that, so the button shows what the car peak charge level is set to and can be used to adjust that value.
