@@ -19,4 +19,6 @@ If you have more than one car you charge at home, create two sensors and two aut
 
 Here's my charging dashboard for some inspiration, showing the various sensors and integrations in action. 
 ![My Dashboard](https://github.com/LocobladeHA/Octopus-IG-charge-to-add-HA-automation/blob/main/ChargeDashboard.png)
-This is showing whilst my Polestar is half way through an IOG charge, the "Charge Required" sensor updates real time hence why it's lower than the amount of charge requested in the Octopus section when the automation fired when first plugged in. The Target % is set manually on the Polestar as its integration doesn't expose the target charge % so if the car is set to 80% thats all it will charge to regardless, whereas the Cupra integration does expose that, so the button shows what the car peak charge level is set to and can be used to adjust that value.
+
+This was taken whilst my Polestar is half way through an IOG charge. The "Charge Required" sensor updates real time hence why the Polestar value 53% is lower than the 61% Octopus "Charge Requested", which was set by the the automation as the amount required when first plugged in. 
+The Target % is set manually on the Polestar as its integration doesn't expose the target charge %. That means this value won't override what the car is set to, whereas the Cupra integration does expose that value and allow it to be modified so the button under the Cupra section shows what the car peak charge level is set to and can be used to adjust that value rather than go to the car or use the Cupra app.
